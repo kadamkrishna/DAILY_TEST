@@ -2,22 +2,8 @@ name: Daily AI-Generated VLSI Mock Test
 
 on:
   schedule:
-    # Runs at 00:30 UTC (06:00 AM IST) every day
     - cron: '30 0 * * *'
-  
-  # Manual trigger for testing
   workflow_dispatch:
-    inputs:
-      dry_run:
-        description: 'Dry run (generate but do not send email)'
-        required: false
-        default: false
-        type: boolean
-      show_prompt:
-        description: 'Show the prompt sent to AI'
-        required: false
-        default: false
-        type: boolean
 
 jobs:
   generate-and-send:
@@ -45,20 +31,7 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
-        run: |
-          DRY_RUN_FLAG=""
-          SHOW_PROMPT_FLAG=""
-          
-          if [[ "${{ github.event.inputs.dry_run }}" == "true" ]]; then
-            DRY_RUN_FLAG="--dry-run"
-          fi
-          
-          if [[ "${{ github.event.inputs.show_prompt }}" == "true" ]]; then
-            SHOW_PROMPT_FLAG="--show-prompt"
-          fi
-          
-          python mock_test_dynamic.py $DRY_RUN_FLAG $SHOW_PROMPT_FLAG
+        run: python mock_test_dynamic.py
       
       - name: Log completion
-        run: |
-          echo "✅ Daily AI-generated mock test workflow completed at $(date -u)"
+        run: echo "✅ Daily AI-generated mock test completed at $(date -u)"

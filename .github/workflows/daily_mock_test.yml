@@ -1,0 +1,66 @@
+name: Daily AI-Generated VLSI Mock Test
+
+on:
+  schedule:
+    # Runs at 00:30 UTC (06:00 AM IST) every day
+    - cron: '30 0 * * *'
+  
+  # Manual trigger for testing
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: 'Dry run (generate but don\'t send email)'
+        required: false
+        default: 'false'
+        type: boolean
+      show_prompt:
+        description: 'Show the prompt sent to AI'
+        required: false
+        default: 'false'
+        type: boolean
+
+jobs:
+  generate-and-send:
+    runs-on: ubuntu-latest
+    
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+      
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+      
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install requests  # Only external dependency
+      
+      - name: Run AI mock test generator
+        env:
+          DEEPSEEK_API_KEY: ${{ secrets.DEEPSEEK_API_KEY }}
+          EMAIL_FROM: ${{ secrets.EMAIL_FROM }}
+          EMAIL_PASSWORD: ${{ secrets.EMAIL_PASSWORD }}
+          EMAIL_TO: ${{ secrets.EMAIL_TO }}
+          SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
+          SMTP_PORT: ${{ secrets.SMTP_PORT }}
+        run: |
+          if [ "${{ github.event.inputs.dry_run }}" == "true" ]; then
+            DRY_RUN_FLAG="--dry-run"
+          else
+            DRY_RUN_FLAG=""
+          fi
+          
+          if [ "${{ github.event.inputs.show_prompt }}" == "true" ]; then
+            SHOW_PROMPT_FLAG="--show-prompt"
+          else
+            SHOW_PROMPT_FLAG=""
+          fi
+          
+          python mock_test_dynamic.py $DRY_RUN_FLAG $SHOW_PROMPT_FLAG
+      
+      - name: Log completion
+        run: |
+          echo "✅ Daily AI-generated mock test workflow completed at $(date -u)"
+          echo "📧 Check your email for today's fresh questions"

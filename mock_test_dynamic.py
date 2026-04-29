@@ -46,7 +46,7 @@ def get_difficulty_level(base_date=None) -> Tuple[int, str]:
     epoch = datetime(2024, 1, 1, tzinfo=IST)
     days_since_epoch = (base_date - epoch).days
     
-    level = (days_since_epoch % 10) + 1
+    level = (days_since_epoch % 5) + 1
     
     level_descriptions = {
         1: "FUNDAMENTAL - Entry level, basic concepts, definitions, simple circuits. For M.Tech freshers.",

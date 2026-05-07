@@ -14,12 +14,11 @@ from datetime import datetime, timezone, timedelta
 from typing import Dict, List, Tuple, Set
 import requests
 import subprocess
-import sys
 
 # Configuration
 IST = timezone(timedelta(hours=5, minutes=30))
 DEEPSEEK_API_URL = "https://api.deepseek.com/v1/chat/completions"
-HISTORY_FILE = "question_history.json"  # Stores all previously asked questions
+HISTORY_FILE = "question_history.json"
 
 # Define the 13 sections
 SECTIONS = [
@@ -46,19 +45,14 @@ def get_difficulty_level(base_date=None) -> Tuple[int, str]:
     epoch = datetime(2024, 1, 1, tzinfo=IST)
     days_since_epoch = (base_date - epoch).days
     
-    level = (days_since_epoch % 5) + 1  # Levels 1-5 only for now
+    level = (days_since_epoch % 5) + 1
     
     level_descriptions = {
         1: "FUNDAMENTAL - Entry level, basic concepts, definitions, simple circuits. For M.Tech freshers.",
         2: "BASIC - Simple design problems, standard interview questions, common scenarios.",
         3: "INTERMEDIATE - Moderate complexity, small design tasks, multiple concepts combined.",
         4: "UPPER INTERMEDIATE - Non-trivial designs, timing analysis, protocol basics.",
-        5: "ADVANCED - Complex designs, optimization problems, trade-off analysis.",
-        6: "EXPERT - Pipeline design, verification strategies, tool-specific deep dives.",
-        7: "ARCHITECT - System-level design, multi-domain problems, performance analysis.",
-        8: "SENIOR ARCHITECT - Cutting-edge techniques, protocol intricacies, advanced optimizations.",
-        9: "PRINCIPAL ENGINEER - Research-level problems, novel solutions, cross-domain integration.",
-        10: "FELLOW/CTO - Speculative designs, industry future directions, extreme complexity."
+        5: "ADVANCED - Complex designs, optimization problems, trade-off analysis."
     }
     
     return level, level_descriptions[level]
@@ -66,11 +60,10 @@ def get_difficulty_level(base_date=None) -> Tuple[int, str]:
 def load_question_history() -> Dict:
     """Load previously asked questions from JSON file"""
     if not os.path.exists(HISTORY_FILE):
-        # Create empty history
         empty_history = {
             "questions": [],
             "last_updated": None,
-            "total_questions": 0
+            "total_days": 0
         }
         with open(HISTORY_FILE, 'w') as f:
             json.dump(empty_history, f, indent=2)
@@ -88,8 +81,16 @@ def get_asked_questions_set(history: Dict) -> Set[str]:
     """Return set of all previously asked questions for duplicate checking"""
     asked = set()
     for entry in history.get("questions", []):
-        asked.add(entry.get("question", ""))
+        # Each entry has a 'questions' list
+        for q in entry.get("questions", []):
+            question_text = q.get("question", "")
+            if question_text:
+                asked.add(question_text)
     return asked
+
+def get_total_unique_questions(history: Dict) -> int:
+    """Return total number of unique questions asked so far"""
+    return len(get_asked_questions_set(history))
 
 def build_prompt(level: int, level_desc: str, sections: List[Dict], asked_questions: Set[str]) -> str:
     """Build the prompt for DeepSeek API with anti-repetition instructions"""
@@ -99,7 +100,7 @@ def build_prompt(level: int, level_desc: str, sections: List[Dict], asked_questi
     # Convert asked questions to list for the prompt (limit to last 50 to avoid token overflow)
     asked_list = list(asked_questions)
     if len(asked_list) > 50:
-        asked_list = asked_list[-50:]  # Only send last 50 to avoid token limits
+        asked_list = asked_list[-50:]
     
     asked_text = "\n".join([f"- {q}" for q in asked_list]) if asked_list else "No questions asked yet."
     
@@ -114,7 +115,7 @@ PREVIOUSLY ASKED QUESTIONS:
 
 REQUIREMENTS:
 - Generate exactly {len(sections)} questions (one per section)
-- Difficulty Level: {level}/10 - {level_desc}
+- Difficulty Level: {level}/5 - {level_desc}
 - Each question MUST be UNIQUE and never asked before (check against the list above)
 - Questions should be PRACTICAL, INTERVIEW-FOCUSED, and REALISTIC
 - Topics can be repeated but the exact wording/problem must be different
@@ -135,7 +136,7 @@ SECTIONS TO COVER:
 
 TODAY'S DATE: {datetime.now(IST).strftime('%Y-%m-%d')}
 
-Generate {len(sections)} fresh, UNIQUE, challenging questions at level {level}/10.
+Generate {len(sections)} fresh, UNIQUE, challenging questions at level {level}/5.
 Return ONLY valid JSON, no other text."""
     
     return prompt
@@ -267,10 +268,9 @@ def generate_fallback_questions(level: int, asked_questions: Set[str]) -> Dict:
     for i, section in enumerate(SECTIONS):
         # Find a question not asked before
         selected_question = None
-        for q in templates[i * 2: i * 2 + len(templates)] + templates:  # Try multiple options
-            candidate = q
-            if candidate not in asked_questions and candidate not in used_questions:
-                selected_question = candidate
+        for q in templates:
+            if q not in asked_questions and q not in used_questions:
+                selected_question = q
                 break
         
         if selected_question is None:
@@ -286,26 +286,22 @@ def generate_fallback_questions(level: int, asked_questions: Set[str]) -> Dict:
 def commit_and_push_history():
     """Commit and push the updated history file to GitHub"""
     try:
-        # Configure git (uses GitHub Actions token)
         subprocess.run(["git", "config", "--global", "user.email", "github-actions[bot]@users.noreply.github.com"], check=False)
         subprocess.run(["git", "config", "--global", "user.name", "github-actions[bot]"], check=False)
         
-        # Add and commit
         subprocess.run(["git", "add", HISTORY_FILE], check=False)
         subprocess.run(["git", "commit", "-m", f"Update question history - {datetime.now(IST).strftime('%Y-%m-%d')}"], check=False)
-        
-        # Push
         subprocess.run(["git", "push"], check=False)
         print("✅ Question history committed to GitHub")
     except Exception as e:
         print(f"⚠️ Could not commit history: {e}")
 
-def generate_email_html(questions: List[Dict], level: int, level_desc: str, date_str: str, history_count: int) -> str:
+def generate_email_html(questions: List[Dict], level: int, level_desc: str, date_str: str, total_unique_questions: int) -> str:
     """Generate professional HTML email content"""
     
     section_map = {s["id"]: s["name"] for s in SECTIONS}
     
-    next_level = (level % 5) + 1 if level < 5 else 1
+    next_level = (level % 5) + 1
     next_desc = {
         1: "Fundamental", 2: "Basic", 3: "Intermediate", 4: "Upper Intermediate", 5: "Advanced"
     }.get(next_level, "Next Level")
@@ -438,7 +434,7 @@ def generate_email_html(questions: List[Dict], level: int, level_desc: str, date
         <p style="margin-top: 15px;">📅 {date_str}</p>
         <span class="ai-badge">✨ Freshly generated by DeepSeek AI ✨</span>
         <span class="no-repeat">🚫 No Question Repeats</span>
-        <div class="stats">📚 Total unique questions asked so far: {history_count}</div>
+        <div class="stats">📚 Total unique questions asked so far: {total_unique_questions}</div>
     </div>
     
     <div class="timer">
@@ -472,8 +468,8 @@ def generate_email_html(questions: List[Dict], level: int, level_desc: str, date
     html += f"""
     <div class="footer">
         <p>🚀 <strong>Daily practice with UNIQUE questions is the fastest way to master VLSI interviews!</strong></p>
-        <p>📈 Tomorrow: Level {next_level}/5</p>
-        <p>🤖 Questions generated uniquely for today - {history_count}+ questions already in history</p>
+        <p>📈 Tomorrow: Level {next_level}/5 - {next_desc} Level</p>
+        <p>🤖 Questions generated uniquely for today - {total_unique_questions}+ questions already in history</p>
         <p>❄️ Keep grinding - Your future VLSI engineer self will thank you!</p>
     </div>
 </body>
@@ -552,7 +548,8 @@ def main():
     print("📚 Loading question history...")
     history = load_question_history()
     asked_questions = get_asked_questions_set(history)
-    print(f"   Found {len(asked_questions)} previously asked questions")
+    total_unique_before = len(asked_questions)
+    print(f"   Found {total_unique_before} previously asked questions")
     
     # ========== GENERATE QUESTIONS ==========
     level, level_desc = get_difficulty_level()
@@ -561,7 +558,7 @@ def main():
     print(f"🎯 Generating Mock Test")
     print(f"   Date: {date_str}")
     print(f"   Level: {level}/5")
-    print(f"   Avoiding {len(asked_questions)} existing questions")
+    print(f"   Avoiding {total_unique_before} existing questions")
     
     prompt = build_prompt(level, level_desc, SECTIONS, asked_questions)
     
@@ -591,7 +588,7 @@ def main():
             questions.append({"section_id": len(questions) + 1, "question": "Explain a VLSI concept you're confident about."})
     
     # ========== CHECK FOR DUPLICATES ==========
-    new_questions_text = [q['question'] for q in questions]
+    new_questions_text = [q.get('question', '') for q in questions]
     duplicates = [q for q in new_questions_text if q in asked_questions]
     
     if duplicates:
@@ -610,18 +607,21 @@ def main():
     }
     history["questions"].append(today_entry)
     history["last_updated"] = datetime.now(IST).strftime("%Y-%m-%d %H:%M:%S %Z")
-    history["total_questions"] = len(history["questions"])
+    history["total_days"] = len(history["questions"])
     
     save_question_history(history)
-    print(f"   History updated! Total entries: {history['total_questions']}")
+    print(f"   History updated! Total days: {history['total_days']}")
     
     # Commit and push if running in GitHub Actions (not dry-run)
     if not args.dry_run and os.environ.get('GITHUB_ACTIONS') == 'true':
         commit_and_push_history()
     
+    # Calculate total unique questions after adding today's
+    total_unique_after = get_total_unique_questions(history)
+    
     # ========== GENERATE AND SEND EMAIL ==========
     subject = f"🎯 Day {level} VLSI Mock Test - {datetime.now(IST).strftime('%d %b %Y')} (No Repeats!)"
-    html_content = generate_email_html(questions, level, level_desc, date_str, history['total_questions'] * 13)
+    html_content = generate_email_html(questions, level, level_desc, date_str, total_unique_after)
     
     if args.dry_run:
         print("\n" + "="*60)
@@ -629,10 +629,10 @@ def main():
         print("="*60)
         print(f"To: {to_email or 'Not set'}")
         print(f"Subject: {subject}")
-        print(f"Total questions in history: {history['total_questions'] * 13}")
+        print(f"Total unique questions in history: {total_unique_after}")
         print("\n--- First 3 Questions Preview ---")
         for q in questions[:3]:
-            print(f"\n[{q['section_id']}] {q['question'][:100]}...")
+            print(f"\n[{q.get('section_id', '?')}] {q.get('question', '')[:100]}...")
         if len(questions) > 3:
             print(f"\n... and {len(questions) - 3} more questions")
         print("\n" + "="*60)
@@ -643,7 +643,7 @@ def main():
     print(f"\n✨ Mock test sent successfully at {datetime.now(IST)}")
     print(f"   Level: {level}/5")
     print(f"   Questions: {len(questions)}")
-    print(f"   Total unique questions in bank: {history['total_questions'] * 13}")
+    print(f"   Total unique questions in bank: {total_unique_after}")
     
     return 0
 

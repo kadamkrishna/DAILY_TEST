@@ -22,11 +22,11 @@ HISTORY_FILE = "question_history.json"
 
 # Define the 13 sections
 SECTIONS = [
-    {"id": 1, "name": "Common Digital Logic & RTL Fundamentals"},
-    {"id": 2, "name": "Verilog & SystemVerilog for Design"},
+    {"id": 1, "name": "All Digital Electronics & RTL Fundamentals"},
+    {"id": 2, "name": "All Verilog & SystemVerilog for Design"},
     {"id": 3, "name": "SystemVerilog for Verification (Basic to Intermediate)"},
     {"id": 4, "name": "Verification Methodology & Testbench Concepts"},
-    {"id": 5, "name": "Synthesis & Timing"},
+    {"id": 5, "name": "Synthesis & Timing & ALL static timing analysis concepts"},
     {"id": 6, "name": "Clock Domain Crossing (CDC) & Reset"},
     {"id": 7, "name": "Low-Power Design"},
     {"id": 8, "name": "Memory & Interfaces (basic awareness)"},

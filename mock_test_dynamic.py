@@ -1,8 +1,5 @@
 #!/usr/bin/env python3
-"""
-Dynamic VLSI Mock Test Generator using DeepSeek API
-Generates fresh questions daily with NO repetition using persistent history
-"""
+
 
 import os
 import json

@@ -5,6 +5,10 @@ on:
     - cron: '30 0 * * *'
   workflow_dispatch:
 
+# IMPORTANT: Give write permission to push history file
+permissions:
+  contents: write
+
 jobs:
   generate-and-send:
     runs-on: ubuntu-latest
@@ -12,6 +16,8 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Fetch all history for proper commit
       
       - name: Set up Python
         uses: actions/setup-python@v5
@@ -19,9 +25,7 @@ jobs:
           python-version: '3.11'
       
       - name: Install dependencies
-        run: |
-          python -m pip install --upgrade pip
-          pip install requests
+        run: pip install requests
       
       - name: Run AI mock test generator
         env:
@@ -31,7 +35,14 @@ jobs:
           EMAIL_TO: ${{ secrets.EMAIL_TO }}
           SMTP_SERVER: ${{ secrets.SMTP_SERVER }}
           SMTP_PORT: ${{ secrets.SMTP_PORT }}
+          GITHUB_ACTIONS: true
         run: python mock_test_dynamic.py
       
-      - name: Log completion
-        run: echo "✅ Daily AI-generated mock test completed at $(date -u)"
+      - name: Push history file changes
+        if: always()
+        run: |
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git config --global user.name "github-actions[bot]"
+          git add question_history.json
+          git commit -m "Update question history - $(date '+%Y-%m-%d')" || echo "No changes to commit"
+          git push

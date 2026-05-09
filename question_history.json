@@ -231,8 +231,66 @@
           "question": "How do you handle a last-minute spec change?"
         }
       ]
+    },
+    {
+      "date": "2026-05-09",
+      "level": 5,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "Design a 16-bit Wallace tree multiplier."
+        },
+        {
+          "section_id": 2,
+          "question": "Write synthesizable Verilog for a dual-port RAM."
+        },
+        {
+          "section_id": 3,
+          "question": "Implement a UVM sequence with constrained random traffic."
+        },
+        {
+          "section_id": 4,
+          "question": "What are the differences between OVM, VMM, and UVM?"
+        },
+        {
+          "section_id": 5,
+          "question": "Perform STA on a design with multiple clocks."
+        },
+        {
+          "section_id": 6,
+          "question": "Design a FIFO-based CDC for multi-bit data."
+        },
+        {
+          "section_id": 7,
+          "question": "Explain UPF and create a simple power intent."
+        },
+        {
+          "section_id": 8,
+          "question": "Design a simple DMA controller."
+        },
+        {
+          "section_id": 9,
+          "question": "Implement Tomasulo's algorithm for out-of-order execution."
+        },
+        {
+          "section_id": 10,
+          "question": "Write a Makefile for a multi-file simulation flow."
+        },
+        {
+          "section_id": 11,
+          "question": "Debug an X-propagation issue in a complex design."
+        },
+        {
+          "section_id": 12,
+          "question": "Design an 8-bit Booth multiplier."
+        },
+        {
+          "section_id": 13,
+          "question": "How do you verify a cache coherency protocol?"
+        }
+      ]
     }
   ],
-  "last_updated": "2026-05-08 09:28:23 UTC+05:30",
-  "total_days": 4
+  "last_updated": "2026-05-09 09:32:45 UTC+05:30",
+  "total_days": 5
 }

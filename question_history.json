@@ -347,8 +347,66 @@
           "question": "Tell me about a project you worked on."
         }
       ]
+    },
+    {
+      "date": "2026-05-11",
+      "level": 2,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "Design a 4-bit synchronous counter with enable."
+        },
+        {
+          "section_id": 2,
+          "question": "Explain blocking vs non-blocking assignments with example."
+        },
+        {
+          "section_id": 3,
+          "question": "Write a testbench for a 4-bit adder using SystemVerilog."
+        },
+        {
+          "section_id": 4,
+          "question": "What is code coverage vs functional coverage?"
+        },
+        {
+          "section_id": 5,
+          "question": "Calculate max clock frequency for a given timing path."
+        },
+        {
+          "section_id": 6,
+          "question": "Design a two-flop synchronizer for a single-bit CDC."
+        },
+        {
+          "section_id": 7,
+          "question": "What are the power optimization techniques at RTL level?"
+        },
+        {
+          "section_id": 8,
+          "question": "Explain AXI read and write transactions."
+        },
+        {
+          "section_id": 9,
+          "question": "What is a pipeline hazard? Give examples."
+        },
+        {
+          "section_id": 10,
+          "question": "Write a TCL script to run a simulation."
+        },
+        {
+          "section_id": 11,
+          "question": "Debug a simulation where output is 'Z' unexpectedly."
+        },
+        {
+          "section_id": 12,
+          "question": "Convert a D flip-flop to T flip-flop."
+        },
+        {
+          "section_id": 13,
+          "question": "How do you prioritize multiple bugs?"
+        }
+      ]
     }
   ],
-  "last_updated": "2026-05-10 10:01:05 UTC+05:30",
-  "total_days": 6
+  "last_updated": "2026-05-11 10:13:29 UTC+05:30",
+  "total_days": 7
 }

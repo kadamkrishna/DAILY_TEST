@@ -1449,8 +1449,66 @@
           "question": "[Repetition Fallback] How do you verify a cache coherency protocol?"
         }
       ]
+    },
+    {
+      "date": "2026-05-30",
+      "level": 1,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "[Repetition Fallback] Explain the difference between synchronous and asynchronous reset."
+        },
+        {
+          "section_id": 2,
+          "question": "[Repetition Fallback] Write Verilog code for a D flip-flop with active-low reset."
+        },
+        {
+          "section_id": 3,
+          "question": "[Repetition Fallback] What is the difference between $display and $monitor in Verilog?"
+        },
+        {
+          "section_id": 4,
+          "question": "[Repetition Fallback] Explain the difference between directed and constrained-random testing."
+        },
+        {
+          "section_id": 5,
+          "question": "[Repetition Fallback] Define setup time and hold time."
+        },
+        {
+          "section_id": 6,
+          "question": "[Repetition Fallback] What is metastability and how do you fix it?"
+        },
+        {
+          "section_id": 7,
+          "question": "[Repetition Fallback] What is clock gating and why is it used?"
+        },
+        {
+          "section_id": 8,
+          "question": "[Repetition Fallback] List the basic signals of AHB-Lite protocol."
+        },
+        {
+          "section_id": 9,
+          "question": "[Repetition Fallback] Draw a 5-stage pipeline diagram."
+        },
+        {
+          "section_id": 10,
+          "question": "[Repetition Fallback] Write a Python function to read a file and count lines."
+        },
+        {
+          "section_id": 11,
+          "question": "[Repetition Fallback] How do you debug a simulation that shows 'X' on a signal?"
+        },
+        {
+          "section_id": 12,
+          "question": "[Repetition Fallback] Design a divide-by-2 clock divider using a D flip-flop."
+        },
+        {
+          "section_id": 13,
+          "question": "[Repetition Fallback] Tell me about a project you worked on."
+        }
+      ]
     }
   ],
-  "last_updated": "2026-05-29 10:22:48 UTC+05:30",
-  "total_days": 25
+  "last_updated": "2026-05-30 10:03:37 UTC+05:30",
+  "total_days": 26
 }

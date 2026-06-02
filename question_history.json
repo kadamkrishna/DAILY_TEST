@@ -1623,8 +1623,66 @@
           "question": "[Repetition Fallback] Describe a difficult bug you solved."
         }
       ]
+    },
+    {
+      "date": "2026-06-02",
+      "level": 4,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "[Repetition Fallback] Design a parameterized FIFO with status flags."
+        },
+        {
+          "section_id": 2,
+          "question": "[Repetition Fallback] Write a SystemVerilog package for common functions."
+        },
+        {
+          "section_id": 3,
+          "question": "[Repetition Fallback] Build a UVM environment with agent, driver, monitor."
+        },
+        {
+          "section_id": 4,
+          "question": "[Repetition Fallback] Explain the difference between RAL frontdoor and backdoor access."
+        },
+        {
+          "section_id": 5,
+          "question": "[Repetition Fallback] Identify false paths and multicycle paths in a design."
+        },
+        {
+          "section_id": 6,
+          "question": "[Repetition Fallback] Design a handshake-based CDC for multi-bit data."
+        },
+        {
+          "section_id": 7,
+          "question": "[Repetition Fallback] What is power gating and how do you implement retention flops?"
+        },
+        {
+          "section_id": 8,
+          "question": "[Repetition Fallback] Explain AXI3, AXI4, and AXI4-Lite differences."
+        },
+        {
+          "section_id": 9,
+          "question": "[Repetition Fallback] Design a branch predictor for a 5-stage pipeline."
+        },
+        {
+          "section_id": 10,
+          "question": "[Repetition Fallback] Write a Python script to automate regression runs."
+        },
+        {
+          "section_id": 11,
+          "question": "[Repetition Fallback] Debug a setup time violation in a critical path."
+        },
+        {
+          "section_id": 12,
+          "question": "[Repetition Fallback] Design a Mealy FSM for a UART receiver."
+        },
+        {
+          "section_id": 13,
+          "question": "[Repetition Fallback] How do you handle a last-minute spec change?"
+        }
+      ]
     }
   ],
-  "last_updated": "2026-06-01 10:54:54 UTC+05:30",
-  "total_days": 28
+  "last_updated": "2026-06-02 10:40:07 UTC+05:30",
+  "total_days": 29
 }

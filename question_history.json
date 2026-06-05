@@ -1797,8 +1797,66 @@
           "question": "[Repetition Fallback] Tell me about a project you worked on."
         }
       ]
+    },
+    {
+      "date": "2026-06-05",
+      "level": 2,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "[Repetition Fallback] Design a 4-bit synchronous counter with enable."
+        },
+        {
+          "section_id": 2,
+          "question": "[Repetition Fallback] Explain blocking vs non-blocking assignments with example."
+        },
+        {
+          "section_id": 3,
+          "question": "[Repetition Fallback] Write a testbench for a 4-bit adder using SystemVerilog."
+        },
+        {
+          "section_id": 4,
+          "question": "[Repetition Fallback] What is code coverage vs functional coverage?"
+        },
+        {
+          "section_id": 5,
+          "question": "[Repetition Fallback] Calculate max clock frequency for a given timing path."
+        },
+        {
+          "section_id": 6,
+          "question": "[Repetition Fallback] Design a two-flop synchronizer for a single-bit CDC."
+        },
+        {
+          "section_id": 7,
+          "question": "[Repetition Fallback] What are the power optimization techniques at RTL level?"
+        },
+        {
+          "section_id": 8,
+          "question": "[Repetition Fallback] Explain AXI read and write transactions."
+        },
+        {
+          "section_id": 9,
+          "question": "[Repetition Fallback] What is a pipeline hazard? Give examples."
+        },
+        {
+          "section_id": 10,
+          "question": "[Repetition Fallback] Write a TCL script to run a simulation."
+        },
+        {
+          "section_id": 11,
+          "question": "[Repetition Fallback] Debug a simulation where output is 'Z' unexpectedly."
+        },
+        {
+          "section_id": 12,
+          "question": "[Repetition Fallback] Convert a D flip-flop to T flip-flop."
+        },
+        {
+          "section_id": 13,
+          "question": "[Repetition Fallback] How do you prioritize multiple bugs?"
+        }
+      ]
     }
   ],
-  "last_updated": "2026-06-04 10:50:40 UTC+05:30",
-  "total_days": 31
+  "last_updated": "2026-06-05 10:25:56 UTC+05:30",
+  "total_days": 32
 }

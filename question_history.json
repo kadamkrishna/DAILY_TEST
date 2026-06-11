@@ -2145,8 +2145,66 @@
           "question": "[Repetition Fallback] How do you prioritize multiple bugs?"
         }
       ]
+    },
+    {
+      "date": "2026-06-11",
+      "level": 3,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "[Repetition Fallback] Design a 4-bit carry lookahead adder."
+        },
+        {
+          "section_id": 2,
+          "question": "[Repetition Fallback] Write SystemVerilog interface for AHB-Lite."
+        },
+        {
+          "section_id": 3,
+          "question": "[Repetition Fallback] Implement a scoreboard with a reference model."
+        },
+        {
+          "section_id": 4,
+          "question": "[Repetition Fallback] Explain UVM phases and their order."
+        },
+        {
+          "section_id": 5,
+          "question": "[Repetition Fallback] What is clock gating? Design a glitch-free clock gate."
+        },
+        {
+          "section_id": 6,
+          "question": "[Repetition Fallback] Explain Gray code based FIFO pointer synchronization."
+        },
+        {
+          "section_id": 7,
+          "question": "[Repetition Fallback] What is multi-Vt and when do you use it?"
+        },
+        {
+          "section_id": 8,
+          "question": "[Repetition Fallback] Describe DDR read and write timing."
+        },
+        {
+          "section_id": 9,
+          "question": "[Repetition Fallback] Explain out-of-order execution in simple terms."
+        },
+        {
+          "section_id": 10,
+          "question": "[Repetition Fallback] Parse a log file and extract error counts."
+        },
+        {
+          "section_id": 11,
+          "question": "[Repetition Fallback] Debug an inferred latch in an FSM."
+        },
+        {
+          "section_id": 12,
+          "question": "[Repetition Fallback] Design a sequence detector for '1011'."
+        },
+        {
+          "section_id": 13,
+          "question": "[Repetition Fallback] Describe a difficult bug you solved."
+        }
+      ]
     }
   ],
-  "last_updated": "2026-06-10 10:26:32 UTC+05:30",
-  "total_days": 37
+  "last_updated": "2026-06-11 10:38:40 UTC+05:30",
+  "total_days": 38
 }

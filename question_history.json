@@ -2261,8 +2261,66 @@
           "question": "[Repetition Fallback] How do you handle a last-minute spec change?"
         }
       ]
+    },
+    {
+      "date": "2026-06-13",
+      "level": 5,
+      "questions": [
+        {
+          "section_id": 1,
+          "question": "[Repetition Fallback] Design a 16-bit Wallace tree multiplier."
+        },
+        {
+          "section_id": 2,
+          "question": "[Repetition Fallback] Write synthesizable Verilog for a dual-port RAM."
+        },
+        {
+          "section_id": 3,
+          "question": "[Repetition Fallback] Implement a UVM sequence with constrained random traffic."
+        },
+        {
+          "section_id": 4,
+          "question": "[Repetition Fallback] What are the differences between OVM, VMM, and UVM?"
+        },
+        {
+          "section_id": 5,
+          "question": "[Repetition Fallback] Perform STA on a design with multiple clocks."
+        },
+        {
+          "section_id": 6,
+          "question": "[Repetition Fallback] Design a FIFO-based CDC for multi-bit data."
+        },
+        {
+          "section_id": 7,
+          "question": "[Repetition Fallback] Explain UPF and create a simple power intent."
+        },
+        {
+          "section_id": 8,
+          "question": "[Repetition Fallback] Design a simple DMA controller."
+        },
+        {
+          "section_id": 9,
+          "question": "[Repetition Fallback] Implement Tomasulo's algorithm for out-of-order execution."
+        },
+        {
+          "section_id": 10,
+          "question": "[Repetition Fallback] Write a Makefile for a multi-file simulation flow."
+        },
+        {
+          "section_id": 11,
+          "question": "[Repetition Fallback] Debug an X-propagation issue in a complex design."
+        },
+        {
+          "section_id": 12,
+          "question": "[Repetition Fallback] Design an 8-bit Booth multiplier."
+        },
+        {
+          "section_id": 13,
+          "question": "[Repetition Fallback] How do you verify a cache coherency protocol?"
+        }
+      ]
     }
   ],
-  "last_updated": "2026-06-12 10:43:25 UTC+05:30",
-  "total_days": 39
+  "last_updated": "2026-06-13 10:30:48 UTC+05:30",
+  "total_days": 40
 }
